@@ -52,7 +52,7 @@ def create_model(time_step, cnn_input_shape, difficulty_input_shape):
     output = layers.Dense(1, activation='sigmoid')(d2)
 
     model = tf.keras.Model([cnn_input, diff_input], output)
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=['acc'])
+    model.compile(loss='mse', optimizer='Adam', metrics=['acc', tf.keras.metrics.AUC()])
 
     return model
 
