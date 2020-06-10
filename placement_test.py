@@ -13,7 +13,7 @@ model.load_weights('checkpoints/model_default')
 
 
 def generator_onset(difficulty, od, hd, image_path):
-    image_size = len(os.listdir(PATH))
+    image_size = len(os.listdir(image_path))
 
     diff_vector = [[difficulty, od, hd] for _ in range(16)]
     diff_vector = np.array(diff_vector).reshape(-1, 16, 3)
@@ -21,7 +21,7 @@ def generator_onset(difficulty, od, hd, image_path):
     result = []
 
     for i in range(image_size):
-        image = cv2.imread(PATH + str(i) + ".png", cv2.IMREAD_COLOR)
+        image = cv2.imread(image_path + str(i) + ".png", cv2.IMREAD_COLOR)
         part_image = np.array(slice_image(image)).reshape(-1, 16, 80, 15, 3)
 
         result = result + model.predict([part_image, diff_vector]).reshape(-1, ).tolist()

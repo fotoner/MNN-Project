@@ -80,9 +80,9 @@ def data_generator(batch_size=2, epochs=1):
                     y_batch.append(y)
 
                     if len(y_batch) == batch_size:
-                        yield np.array(x_image_batch).astype(np.float32), np.array(x_diff_batch),  np.array(y_batch)
+                        yield np.array(x_image_batch).astype(np.float32), np.array(x_diff_batch),  np.array(y_batch).reshape(-1, 16, 1)
                         x_image_batch = []
                         x_diff_batch = []
                         y_batch = []
 
-    yield np.array(x_image_batch).astype(np.float32), np.array(x_diff_batch), np.array(y_batch)
+    yield np.array(x_image_batch).astype(np.float32), np.array(x_diff_batch), np.array(y_batch).reshape(-1, 16, 1)
