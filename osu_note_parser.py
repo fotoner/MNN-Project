@@ -4,7 +4,7 @@ import os
 
 import pandas as pd
 
-from my_utils.note_embedding import note_map_new
+from my_utils.note_embedding import note_map
 
 PATH ='C:/osu!/Songs/'
 
@@ -102,7 +102,7 @@ for cur_song in json_data:
 
         #plt.plot(note_time_stamp)
 
-        id2note, note2id = note_map_new(4)
+        id2note, note2id = note_map(4)
 
         id_notes = []
 

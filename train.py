@@ -10,7 +10,7 @@ result_acc = []
 
 
 for x_image_batch, x_diff_batch, y_batch in data_generator(batch_size=1024, epochs=1):
-    hist = model.fit([x_image_batch, x_diff_batch], y_batch)
+    hist = model.fit([x_image_batch, x_diff_batch], y_batch, shuffle=True)
     result_auc += hist.history["auc"]
     result_acc += hist.history["acc"]
 

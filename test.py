@@ -26,6 +26,8 @@ def generator_onset(difficulty, od, hd, image_path):
 
         result = result + model.predict([part_image, diff_vector]).reshape(-1, ).tolist()
 
+    model.reset_states()
+
     return result
 
 
