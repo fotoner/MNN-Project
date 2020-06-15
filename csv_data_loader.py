@@ -36,7 +36,7 @@ def load_csv_data():
 
         for diff in diff_list:
             count_list = []
-            note_list = []
+            note_list = [0]
 
             difficulty_rating = float(diff["difficulty_rating"]) / 10
             diff_overall = float(diff["diff_overall"]) / 10
@@ -52,20 +52,21 @@ def load_csv_data():
                 else:
                     count += 1
 
+            count_list.append(count_max)
             count_list = np.log(np.array(count_list) + 1) / count_max
             count_list = count_list.tolist()
-
+            '''
             while len(note_list) % 16 != 0:
                 note_list.append(0)
                 count_list.append(count_max)
+            '''
 
-            count_list.append(count_max)
-            y_set = to_categorical(note_list, num_classes=256).reshape(-1, 1, 256)
+            y_set = to_categorical(note_list[1:], num_classes=256).reshape(-1, 1, 256)
             x_set = []
             for i in range(0, len(count_list) - 1):
                 x_temp = [beat, difficulty_rating, diff_overall, diff_drain, count_list[i], count_list[i + 1]]
 
-                note = id2note[note_list[i - 1]]
+                note = id2note[note_list[i]]
                 for j in range(4):
                     for k in range(4):
                         x_temp.append(1.0 if int(note[j]) == k else 0.0)

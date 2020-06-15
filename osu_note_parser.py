@@ -56,12 +56,20 @@ for cur_song in json_data:
         sixteenth_note = beat / 4
 
         note_dicts = {}
-
+        cur_hold = [0, 0, 0, 0]
         for line in fine_lines:
             time = int(line[2]) - offset
 
             if not(time in note_dicts):
-                note_dicts[time] = [0, 0, 0, 0]
+                temp_note = [0, 0, 0, 0]
+
+                for i in range(4):
+                    if cur_hold[i] <= time:
+                        cur_hold[i] = 0
+                    else:
+                        temp_note[i] = 2
+
+                note_dicts[time] = temp_note
 
             long_note_time = line[5].split(":")
             long_note_time = int(long_note_time[0]) - offset
@@ -72,6 +80,8 @@ for cur_song in json_data:
                     note_dicts[long_note_time] = [0, 0, 0, 0]
                 note_dicts[time][note_value] = 2
                 note_dicts[long_note_time][note_value] = 3
+                cur_hold[note_value] = long_note_time
+
             else:
                 note_dicts[time][note_value] = 1
 
@@ -121,7 +131,7 @@ for cur_song in json_data:
 
     if len(passed_diff) == 0:
         continue
-
+'''
     item = {"title": file_name, "beat": beat, "diff_list": passed_diff}
     processed_list.append(item)
 
@@ -135,3 +145,4 @@ with open("compact_processed_diff.txt", "w", encoding="UTF-8") as f:
     for item in processed_list["processed_list"]:
         for diff in item["diff_list"]:
             f.write(item['title'] + "/" + diff + "\n")
+'''
