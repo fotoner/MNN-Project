@@ -34,6 +34,18 @@ def generate_onset(difficulty, od, hd, image_path):
 
         result = result + placement_model.predict([part_image, diff_vector]).reshape(-1, ).tolist()
     print("==== Done! ====")
+
+    plt.figure(figsize=(16, 4))
+    plt.grid(True)
+    plt.xlabel('time step')
+    plt.ylabel('%')
+    plt.title('onset predict')
+    plt.plot(result)
+    plt.xticks([i for i in range(64)])
+    plt.xlim([0, 63])
+    plt.ylim([0, 1])
+    plt.axhline(y=0.5, color='r', linewidth=1)
+    plt.show()
     return result
 
 
@@ -91,7 +103,8 @@ if __name__ == "__main__":
     hd = 0.6
 
     note_placement = [1 if value > 0.5 else 0 for value in generate_onset(diff, od, hd, IMAGE_PATH)]
-    plt.plot(note_placement)
+
+
     count_list = get_count_values(note_placement)
     note_list = generate_note(beat, diff, od, hd, count_list)
 
