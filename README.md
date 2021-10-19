@@ -1,5 +1,5 @@
 # MNN-Procjet
-osu! mania auto-mapping project with Depp Learning 
+osu! mania auto-mapping project with Deep Learning 
 
 ## To-Do
 - LIST
